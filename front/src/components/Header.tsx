@@ -47,7 +47,7 @@ export default function HeaderMain({ showSearchBar = true, headerText }: HeaderM
       <div className="w-full flex justify-center items-center h-32 bg-gray-800 px-10">
         {showSearchBar ? (
           <>
-            <div className="relative w-1/3">
+            {/* <div className="relative w-1/3">
               <input
                 type="search"
                 name=""
@@ -56,7 +56,7 @@ export default function HeaderMain({ showSearchBar = true, headerText }: HeaderM
                 placeholder="Search Member"
               />
               <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
+            </div> */}
           </>
         ) : (
           <span className="text-white text-center w-full font-bold text-4xl">{headerText}</span>
