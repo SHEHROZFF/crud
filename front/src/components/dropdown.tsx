@@ -45,6 +45,7 @@ export default function ProfileDropdown() {
         {/* <MenuItem onClick={handleClose}> <a href="/myprofile"> Profile</a></MenuItem> */}
         {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
         {/* <MenuItem onClick={handleLogout}>Logout</MenuItem> */}
+        <MenuItem onClick={handleClose}> <a href="/"> Dashboard</a></MenuItem>
         <MenuItem onClick={handleClose}> <a href="/register"> Register</a></MenuItem>
         <MenuItem onClick={handleClose}> <a href="/login"> Login</a></MenuItem>
         
