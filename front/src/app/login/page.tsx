@@ -30,7 +30,11 @@ export default function LoginPage() {
     console.log(otp);
     
     try {
+<<<<<<< HEAD
       const response = await fetch('http://localhost:5000/api/users/match-otp', { 
+=======
+      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/login', {
+>>>>>>> 28fb3603838862b44977ad263492c05acb43ae32
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
