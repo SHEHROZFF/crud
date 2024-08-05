@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Lottie from 'lottie-react';
-import Loader from '../../public/lottie_loader.json';
 
-const Table: React.FC = () => {
+interface TableViewProps {
+  searchQuery: string;
+}
+
+const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -10,13 +12,11 @@ const Table: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users'); // Update with your server URL
+        const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         const result: any = await response.json();
-        // console.log(result);
-        
         setData(result);
       } catch (err: any) {
         setError(err.message);
@@ -28,10 +28,16 @@ const Table: React.FC = () => {
     fetchData();
   }, []);
 
+  const filteredData = data.filter((member: any) =>
+    member._id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    member.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    member.lastname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    member.region.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return (
       <div className='w-full h-screen flex items-center justify-center font-semibold'>
-        {/* <Lottie loop={true} animationData={Loader} width={"10px"} /> */}
         Loading Please Wait...
       </div>
     );
@@ -63,15 +69,15 @@ const Table: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {data.length === 0 ? (
+              {filteredData.length === 0 ? (
                 <tr>
                   <td colSpan={7} className='py-3 px-4 border-b border-gray-300 text-center'>
                     <p className='mt-2 text-gray-500'>No data available</p>
                   </td>
                 </tr>
               ) : (
-                data.map((member : any ) => (
-                  <tr key={member.id} className='hover:bg-gray-100'>
+                filteredData.map((member: any) => (
+                  <tr key={member._id} className='hover:bg-gray-100'>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member._id}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.firstname}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.lastname}</td>
@@ -90,4 +96,4 @@ const Table: React.FC = () => {
   );
 };
 
-export default Table;
+export default TableView;

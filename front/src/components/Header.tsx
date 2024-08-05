@@ -3,12 +3,18 @@ import React from 'react';
 import ProfileDropdown from './dropdown';
 
 interface HeaderMainProps {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   showSearchBar?: boolean;
   headerText?: string;
 }
 
-export default function HeaderMain({ showSearchBar = true, headerText }: HeaderMainProps) {
+export default function HeaderMain({ searchQuery, setSearchQuery, showSearchBar = true, headerText }: HeaderMainProps) {
   const isLoggedIn = true;
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <header className='w-full flex flex-col items-center justify-center gap-y-3 bg-gray-100'>
@@ -24,6 +30,8 @@ export default function HeaderMain({ showSearchBar = true, headerText }: HeaderM
               id=""
               className="px-5 py-3 focus:outline-none rounded-full w-[450px] shadow-md"
               placeholder="Search Member by ID, Name"
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
            <div className='w-8 h-8 rounded-full bg-blue-500 absolute right-5 top-1/2 -translate-y-1/2 flex justify-center items-center'>
            <i className="fas fa-search  transform  text-white"></i>

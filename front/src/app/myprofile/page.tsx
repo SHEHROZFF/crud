@@ -1,13 +1,13 @@
 import React from 'react'
 import HeaderMain from "../../components/Header";
 import ProfileSection from './profilesection';
-import EditProfile from './editprofile';
 export default function ProfileMain() {
   return (
     <>
-      <HeaderMain showSearchBar={false} headerText="User Profile " />
+      <HeaderMain showSearchBar={false} headerText="User Profile " searchQuery={''} setSearchQuery={function (value: React.SetStateAction<string>): void {
+        throw new Error('Function not implemented.');
+      } } />
       <ProfileSection />
-      {/* <EditProfile /> */}
     </>
   )
 }
