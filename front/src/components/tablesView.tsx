@@ -84,7 +84,7 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member._id}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.firstname}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.lastname}</td>
-                    <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.acronym}</td>
+                    <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.assoc}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.association}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.promotionYear}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.region}</td>
