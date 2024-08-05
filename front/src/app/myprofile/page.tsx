@@ -17,4 +17,8 @@ export default function ProfileMain() {
       <ProfileSection />
     </>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 28fb3603838862b44977ad263492c05acb43ae32

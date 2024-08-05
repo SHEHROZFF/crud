@@ -66,7 +66,15 @@ const userSchema = new mongoose.Schema(
     },
     otpExpiry: {
       type:String,
-      default: Date.now() + 10 * 60 * 1000 
+    },
+    promotionYear: {
+      type: String
+    },
+    association : {
+      type: String
+    },
+    assoc: {
+      type: String
     }
 
     // isAdmin: {
