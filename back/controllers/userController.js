@@ -1,20 +1,16 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
+const crypto = require('crypto');
 const generateToken = require('../utils/generateToken');
 const bcrypt = require('bcryptjs');
 const {
-  generateOTP,
-  storeOTP,
-  getStoredOTP,
-  deleteStoredOTP,
   sendEmail
-} = require('../utils/otpManager');
+} = require('../utils/send email');
 
 // ------------------------------------Login Controller----------------------------------------------
 const login = asyncHandler(async (req, res) => {
-  const { mainEmail, password, otp } = req.body;
+  const { mainEmail, password } = req.body;
   console.log(mainEmail);
-  
 
   const user = await User.findOne({ mainEmail });
 
@@ -22,21 +18,63 @@ const login = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('Invalid email or password');
   }
-    // Verify password before generating OTP
+  
+  // Verify password before generating OTP
   if (!(await user.matchPassword(password))) {
     res.status(401);
     throw new Error('Invalid email or password');
   }
 
+  // Generate OTP
+  const otp = crypto.randomInt(100000, 999999); // Generate a 6-digit OTP
+
+  // Store OTP and expiry time in the user document or a separate collection
+  user.otp = otp;
+  // user.otpExpiry = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+  await user.save();
+
+  // Send OTP via email
+  sendEmail(mainEmail, otp);
+
+  res.json({
+    _id: user._id,
+    firstname: user.firstname,
+    otp:user.otp,
+    email: user.mainEmail,
+    token: generateToken(user._id), // This could be a temporary token if needed
+  });
+});
+// --------------------------match Otp----------------------------------------
+const matchOtp = asyncHandler(async (req, res) => {
+  const { mainEmail, otp } = req.body;
+
+  const user = await User.findOne({ mainEmail });
+  console.log(user);
+  
+  if (!user || !user.otp || !user.otpExpiry) {
+    res.status(400);
+    throw new Error('OTP verification failed');
+  }
+
+  // Check if OTP is valid and not expired
+  if (user.otp !== otp || user.otpExpiry < Date.now()) {
+    res.status(400);
+    throw new Error('Invalid or expired OTP');
+  }
+
+  // Clear OTP and expiry time
+  user.otp = undefined;
+  user.otpExpiry = undefined;
+  await user.save();
+
+  // Send the final response with the actual token if needed
   res.json({
     _id: user._id,
     firstname: user.firstname,
     email: user.mainEmail,
-    // isAdmin: user.isAdmin,
     token: generateToken(user._id),
   });
 });
-
 
 //--------------------------------------- Register Controller-----------------------------
 const register = asyncHandler(async (req, res) => {
@@ -201,4 +239,4 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { login, register, requestProfileUpdate, verifyAndUpdateProfile, getUsers ,deleteUser };
+module.exports = { matchOtp ,login, register, requestProfileUpdate, verifyAndUpdateProfile, getUsers ,deleteUser };

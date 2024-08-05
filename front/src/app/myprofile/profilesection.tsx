@@ -30,7 +30,7 @@ export default function ProfileSection() {
             const userId = localStorage.getItem('userId');
 
             try {
-                const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/request-profile-update/'+ `${userId}`); // Update with your server URL
+                const response = await fetch('http://localhost:5000/api/users/request-profile-update/'+ `${userId}`); // Update with your server URL
                 if (!response.ok) throw new Error('Failed to fetch profile information.');
                 const data = await response.json();
 
@@ -75,7 +75,7 @@ export default function ProfileSection() {
         const userId = localStorage.getItem('userId');
         
         try {
-            const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/verify-and-update-profile/'+ `${userId}`, { // Update with your server URL
+            const response = await fetch('http://localhost:5000/api/users/verify-and-update-profile/'+ `${userId}`, { // Update with your server URL
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

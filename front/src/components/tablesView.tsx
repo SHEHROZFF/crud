@@ -21,7 +21,7 @@ const Table: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users'); // Update with your server URL
+        const response = await fetch('http://localhost:5000/api/users'); // Update with your server URL
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
