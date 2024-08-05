@@ -13,15 +13,9 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-<<<<<<< HEAD
-         const response = await fetch('http://localhost:5000/api/users'); 
-
-        // const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users');
-=======
-//         const response = await fetch('http://localhost:5000/api/users'); // Update with your server URL
 
         const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users');
->>>>>>> 28fb3603838862b44977ad263492c05acb43ae32
+
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
