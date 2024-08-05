@@ -32,7 +32,7 @@ export default function RegisterPage() {
     console.log(JSON.stringify(formData));
 
     try {
-      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.appapi/users/register', { // Update with your server URL
+      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/register', { // Update with your server URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
