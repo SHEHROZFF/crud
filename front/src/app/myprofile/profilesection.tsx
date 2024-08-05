@@ -13,7 +13,7 @@ export default function ProfileSection() {
         mainEmail: '',
         mainTelephone: '',
         officeEmail: '',
-        officeTel: '',
+        officeTelephone: '',
         address: '',
         city: '',
         region: '',
@@ -231,7 +231,7 @@ export default function ProfileSection() {
                             <input
                                 type="tel"
                                 id="officeTel"
-                                value={formData.officeTel}
+                                value={formData.officeTelephone}
                                 className={`w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm ${isEditing ? '' : 'bg-gray-100 cursor-not-allowed'}`}
                                 disabled={!isEditing}
                                 onChange={handleInputChange}

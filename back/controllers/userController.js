@@ -173,55 +173,24 @@ const verifyAndUpdateProfile = asyncHandler(async (req, res) => {
   const city = req.body.city;
   const region = req.body.region;
   const officeName = req.body.officeName;
-  // const { otp, ...updateData } = req.body;
+  const yourTitle = req.body.yourTitle
 
-  // Retrieve user based on userId
   const user = await User.findById(userId);
 
-  // if (!user) {
-  //   return res.status(404).json({ message: "User not found" });
-  // }
-
-  // // Retrieve stored OTP for the user's email
-  // const storedOtp = getStoredOTP(user.email);
-
-  // if (!storedOtp) {
-  //   return res
-  //     .status(400)
-  //     .json({
-  //       message: "OTP is required or expired. Please request a new OTP.",
-  //     });
-  // }
-
-  // if (storedOtp !== otp) {
-  //   return res.status(400).json({ message: "Invalid OTP" });
-  // }
-
-  // deleteStoredOTP(user.email);
-
-  // // Update user profile fields
-  // Object.keys(updateData).forEach((field) => {
-  //   if (user[field] !== undefined) {
-  //     user[field] = updateData[field];
-  //   }
-  // });
-
-  // if (updateData.password) {
-  //   user.password = await bcrypt.hash(updateData.password, 10);
-  // }
   user.officeEmail = officeEmail;
   user.officeTelephone = officeTelephone;
   user.address = address;
   user.city = city;
   user.region = region;
   user.officeName = officeName;
+  user.yourTitle = yourTitle;
   const updatedUser = await user.save();
 
   res.status(200).json({
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    isAdmin: updatedUser.isAdmin,
+    // isAdmin: updatedUser.isAdmin,
     memberNumber: updatedUser.memberNumber,
     membershipDate: updatedUser.membershipDate,
     token: generateToken(updatedUser._id),

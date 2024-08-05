@@ -75,6 +75,9 @@ const userSchema = new mongoose.Schema(
     },
     assoc: {
       type: String
+    },
+    yourTitle:{
+      type:String
     }
 
     // isAdmin: {
