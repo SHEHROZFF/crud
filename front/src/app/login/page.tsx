@@ -6,7 +6,7 @@ export default function LoginPage() {
   const [mainEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verification, setVerification] = useState(false);
-  const [token, setToken] = useState('');
+  const [otp, setotp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -22,23 +22,20 @@ export default function LoginPage() {
       return;
     }
 
-    if (!token) {
-      setError('Please enter the verification token');
+    if (!otp) {
+      setError('Please enter the verification otp');
       setLoading(false);
       return;
     }
-
+    console.log(otp);
+    
     try {
-<<<<<<< HEAD
-      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/login', {
-=======
-      const response = await fetch('http://localhost:5000/api/users/login', { // Update with your server URL
->>>>>>> aef45269fe662379bc91f115c61cc2853be37331
+      const response = await fetch('http://localhost:5000/api/users/match-otp', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mainEmail, password, token }),
+        body: JSON.stringify({ mainEmail, otp }),
       });
 
       if (!response.ok) {
@@ -48,11 +45,46 @@ export default function LoginPage() {
       const result = await response.json();
       console.log('Login successful', result._id);
       localStorage.setItem('userId', result._id);
-      router.push('/myprofile');
+      router.push('/');
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleVerification = async () => {
+    setLoading(true);
+    setError('');
+
+
+    try {
+      const response = await fetch('http://localhost:5000/api/users/login', { // Update with your server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mainEmail, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Verification failed');
+      }
+
+      const result = await response.json();
+      console.log('Verification successful', result._id);
+      // Optionally, handle the result or update the state
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVerification(e.target.checked);
+    if (e.target.checked) {
+      handleVerification(); // Call handleVerification when checked
     }
   };
 
@@ -92,7 +124,7 @@ export default function LoginPage() {
               type="checkbox"
               id="verification"
               checked={verification}
-              onChange={(e) => setVerification(e.target.checked)}
+              onChange={handleCheckboxChange}
             />
             <label htmlFor="verification" className='text-sm text-blue-500'>
               Verification
@@ -100,15 +132,15 @@ export default function LoginPage() {
           </div>
           {verification && (
             <div>
-              <label htmlFor="token" className="block text-sm font-medium text-gray-600">Verification Token</label>
+              <label htmlFor="otp" className="block text-sm font-medium text-gray-600">Verification otp</label>
               <input
                 type="number"
-                id="token"
-                name="token"
-                value={token}
-                onChange={(e) => setToken(e.target.value)}
+                id="otp"
+                name="otp"
+                value={otp}
+                onChange={(e) => setotp(e.target.value)}
                 required
-                placeholder="Enter 6 character token"
+                placeholder="Enter 6 character otp"
                 className="w-full px-4 py-2 border border-gray-300 border-t-0 border-l-0 border-r-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-t-0 focus:border-l-0 focus:border-r-0"
               />
             </div>

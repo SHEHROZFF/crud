@@ -30,7 +30,7 @@ const login = asyncHandler(async (req, res) => {
 
   // Store OTP and expiry time in the user document or a separate collection
   user.otp = otp;
-  // user.otpExpiry = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+  user.otpExpiry = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
   await user.save();
 
   // Send OTP via email
@@ -50,26 +50,31 @@ const matchOtp = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ mainEmail });
   console.log(user);
+  console.log(mainEmail,otp);
   
   if (!user || !user.otp || !user.otpExpiry) {
     res.status(400);
     throw new Error('OTP verification failed');
   }
+  console.log(user.otpExpiry < Date.now());
+  
 
   // Check if OTP is valid and not expired
   if (user.otp !== otp || user.otpExpiry < Date.now()) {
     res.status(400);
     throw new Error('Invalid or expired OTP');
   }
-
+  
   // Clear OTP and expiry time
   user.otp = undefined;
   user.otpExpiry = undefined;
   await user.save();
-
+  console.log(user);
+  
   // Send the final response with the actual token if needed
   res.json({
     _id: user._id,
+    message: "succesful Login",
     firstname: user.firstname,
     email: user.mainEmail,
     token: generateToken(user._id),
@@ -89,7 +94,10 @@ const register = asyncHandler(async (req, res) => {
     mainTelephone,
     officeTelephone,
     address,
-    officeName
+    officeName,
+    promotionYear,
+    association,
+    assoc
 
   } = req.body;
   // console.log(firstname,lastname,email,country,telephone);
@@ -110,7 +118,10 @@ const register = asyncHandler(async (req, res) => {
     mainEmail,
     password,
     region,
-    mainTelephone
+    mainTelephone,
+    promotionYear,
+    association,
+    assoc
   });
   // user.save();
   res.status(201).json({
