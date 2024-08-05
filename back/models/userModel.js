@@ -60,6 +60,13 @@ const userSchema = new mongoose.Schema(
     officeName : {
       type: String,
       // required: true
+    },
+    otp : {
+      type: String
+    },
+    otpExpiry: {
+      type:String,
+      default: Date.now() + 10 * 60 * 1000 
     }
 
     // isAdmin: {

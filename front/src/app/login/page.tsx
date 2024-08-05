@@ -29,7 +29,11 @@ export default function LoginPage() {
     }
 
     try {
+<<<<<<< HEAD
       const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/login', {
+=======
+      const response = await fetch('http://localhost:5000/api/users/login', { // Update with your server URL
+>>>>>>> aef45269fe662379bc91f115c61cc2853be37331
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
