@@ -2,17 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Lottie from 'lottie-react';
 import Loader from '../../public/lottie_loader.json';
 
-// Define the type for a member
-// interface Member {
-//   _id: string;
-//   firstName: string;
-//   lastName: string;
-//   acronym: string;
-//   association: string;
-//   promotionYear: number;
-//   country: string;
-// }
-
 const Table: React.FC = () => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,8 +30,9 @@ const Table: React.FC = () => {
 
   if (loading) {
     return (
-      <div className='w-full h-screen flex items-center justify-center'>
-        <Lottie loop={true} animationData={Loader} />
+      <div className='w-full h-screen flex items-center justify-center font-semibold'>
+        {/* <Lottie loop={true} animationData={Loader} width={"10px"} /> */}
+        Loading Please Wait...
       </div>
     );
   }
@@ -56,20 +46,20 @@ const Table: React.FC = () => {
   }
 
   return (
-    <section className='w-full'>
+    <section className='w-full h-full'>
       <div className='container mx-auto px-4 py-6'>
         <div className='overflow-x-auto'>
           <p className='font-medium text-lg capitalize'>List of Members:</p>
           <table className='min-w-full shadow-md rounded-xl bg-white'>
             <thead className='bg-gray-200 text-gray-700 rounded-md'>
               <tr>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Member ID</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>First Name</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Last Name</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Assoc. Acronym</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Association</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Promotion Year</th>
-                <th className='font-normal py-3 px-4 border-b border-gray-300'>Country</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300 '>Member ID</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>First Name</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>Last Name</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>Assoc. Acronym</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>Association</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>Promotion Year</th>
+                <th className='font-medium py-3 px-4 border-b border-gray-300'>Country</th>
               </tr>
             </thead>
             <tbody>
