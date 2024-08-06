@@ -15,7 +15,7 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
       try {
         //  const response = await fetch('http://localhost:5000/api/users'); 
 
-        const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users');
+        const response = await fetch('https://crud-78ii.vercel.app/api/users');
 
 
 
