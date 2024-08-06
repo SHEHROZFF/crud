@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// OTP Schema (if applicable, include here)
 // User Schema
 const userSchema = new mongoose.Schema(
   {
@@ -9,10 +8,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    
     lastname: {
       type: String,
-      required:true,
+      required: true,
     },
     password: {
       type: String,
@@ -24,10 +22,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
     memberId: {
-      type:Number,
-      default: function name(params) {
-        return Math.random() * 100
-      }
+      type: String,
     },
     membershipDate: {
       type: Date,
@@ -36,113 +31,44 @@ const userSchema = new mongoose.Schema(
     officeEmail: {
       type: String,
     },
-
-    region : {
+    region: {
       type: String,
-      required: true
+      required: true,
     },
-    city : {
+    city: {
       type: String,
-      // required: true
     },
-    mainTelephone : {
-      type:String,
-      required:true
-    },
-    officeTelephone : {
-      type:String,
-      // required:true
-    },
-    address : {
-      type:String,
-      // required:true
-    },
-    officeName : {
+    mainTelephone: {
       type: String,
-      // required: true
+      required: true,
     },
-    otp : {
-      type: String
+    officeTelephone: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    officeName: {
+      type: String,
+    },
+    otp: {
+      type: String,
     },
     otpExpiry: {
-      type:String,
+      type: String,
     },
     promotionYear: {
-      type: String
+      type: String,
     },
-    association : {
-      type: String
+    association: {
+      type: String,
     },
     assoc: {
-      type: String
+      type: String,
     },
-    yourTitle:{
-      type:String
+    yourTitle: {
+      type: String,
     }
-
-    // isAdmin: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-
-    // additionalPhoneNumbers: [{
-    //   type: String,
-    //   required: function() { return !this.isAdmin; }, // Required if not admin
-    // }],
-
-    // additionalEmailAddresses: [{
-    //   type: String,
-    //   unique: true,
-    //   required: function() { return !this.isAdmin; }, // Required if not admin
-    // }],
-
-    // website: {
-    //   type: String,
-    //   required: function() { return !this.isAdmin; }, // Required if not admin
-    // },
-
-    // address: {
-    //   street: {
-    //     type: String,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   },
-    //   city: {
-    //     type: String,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   },
-    //   state: {
-    //     type: String,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   },
-    //   postalCode: {
-    //     type: String,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   }
-    // },
-
-    // gpsLocation: {
-    //   latitude: {
-    //     type: Number,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   },
-    //   longitude: {
-    //     type: Number,
-    //     required: function() { return !this.isAdmin; }, // Required if not admin
-    //   }
-    // },
-
-    // otherPersonalInformation: {
-    //   type: String,
-    //   required: function() { return !this.isAdmin; }, // Required if not admin
-    // },
-
-    // memberNumber: {
-    //   type: String,
-    //   unique: true,
-    //   required: function() { return !this.isAdmin; }, // Required if not admin
-    // },
-
-
   },
   { timestamps: true }
 );
@@ -152,13 +78,18 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Pre-save hook to hash password if modified
+// Pre-save hook to hash password if modified and to set memberId
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next();
+  if (this.isModified('password')) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  
+  if (!this.memberId) {
+    this.memberId = this._id.toString();
+  }
+
+  next();
 });
 
 const User = mongoose.model('User', userSchema);
