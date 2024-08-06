@@ -31,7 +31,7 @@ export default function LoginPage() {
     
     try {
       // const response = await fetch('http://localhost:5000/api/users/match-otp', { 
-      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/match-otp', {
+      const response = await fetch('https://crud-78ii.vercel.app/api/users/match-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default function LoginPage() {
 
 
     try {
-      const response = await fetch('https://crud-wotf-git-main-shehrozs-projects.vercel.app/api/users/login', { // Update with your server URL
+      const response = await fetch('https://crud-78ii.vercel.app/api/users/login', { // Update with your server URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
