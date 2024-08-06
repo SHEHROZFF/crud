@@ -9,7 +9,7 @@ export default function ProfileMain() {
   return (
     <>
       <HeaderMain 
-        showSearchBar={false} 
+        showSearchBar={true} 
         headerText="User Profile" 
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery} 

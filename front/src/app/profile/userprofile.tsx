@@ -63,51 +63,52 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className='w-1/4 mx-auto px-4 py-6'>
-      <h1 className='text-3xl font-bold mb-6 text-center'></h1>
-      <div className='max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-4'>
-        <div className='flex flex-col items-center'>
-          <div className='w-24 h-24 rounded-full bg-gray-200 mb-4 flex items-center justify-center'>
-            {/* Placeholder for user avatar */}
-            <span className='text-2xl font-semibold text-gray-500'>
-              {user.firstname.charAt(0)}{user.lastname.charAt(0)}
-            </span>
-          </div>
-          <h2 className='text-2xl font-semibold text-gray-800 mb-2'>{user.firstname} {user.lastname}</h2>
-          <p className='text-gray-600 mb-4'>{user.assoc}</p>
-        </div>
-        <div className='space-y-4'>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Member ID:</span>
-            <span className='text-gray-900'>{user._id}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>First Name:</span>
-            <span className='text-gray-900'>{user.firstname}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Last Name:</span>
-            <span className='text-gray-900'>{user.lastname}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Country:</span>
-            <span className='text-gray-900'>{user.region}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Membership Date:</span>
-            <span className='text-gray-900'>{user.membershipDate}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Email:</span>
-            <span className='text-gray-900'>{user.mainEmail}</span>
-          </div>
-          <div className='flex justify-between border-b pb-2'>
-            <span className='font-medium text-gray-700'>Cell:</span>
-            <span className='text-gray-900'>{user.mainTelephone}</span>
-          </div>
-        </div>
+    <div className='w-full bg-gray-100 h-screen flex justify-center items-center px-4 py-6'>
+  <div className='max-w-xl w-full mx-auto bg-white shadow-2xl rounded-2xl p-6'>
+    <div className='flex flex-col items-center'>
+      <div className='w-40 h-40 rounded-full bg-blue-200 text-gray-700 mb-6 flex items-center justify-center'>
+        <span className='text-4xl font-bold'>
+          {user.firstname.charAt(0)}{user.lastname.charAt(0)}
+        </span>
+      </div>
+      <h2 className='text-3xl font-bold text-gray-800 mb-2 capitalize'>
+        {user.firstname} {user.lastname}
+      </h2>
+      <p className='text-gray-600 mb-4'>{user.assoc}</p>
+    </div>
+    <div className='space-y-4'>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>Member ID:</span>
+        <span className='text-gray-900 font-medium'>{user._id}</span>
+      </div>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>First Name:</span>
+        <span className='text-gray-900 font-medium capitalize'>{user.firstname}</span>
+      </div>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>Last Name:</span>
+        <span className='text-gray-900 font-medium capitalize'>{user.lastname}</span>
+      </div>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>Country:</span>
+        <span className='text-gray-900 font-medium'>{user.region}</span>
+      </div>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>Membership Date:</span>
+        <span className='text-gray-900 font-medium'>{user.membershipDate}</span>
+      </div>
+      <div className='flex justify-between items-center border-b pb-2'>
+        <span className='font-medium text-gray-700'>Email:</span>
+        <span className='text-gray-900 font-medium'>{user.mainEmail}</span>
+      </div>
+      <div className='flex justify-between items-center'>
+        <span className='font-medium text-gray-700'>Cell:</span>
+        <span className='text-gray-900 font-medium'>{user.mainTelephone}</span>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
