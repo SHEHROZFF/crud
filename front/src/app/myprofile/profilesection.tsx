@@ -153,7 +153,7 @@ export default function ProfileSection() {
                         <div>
                             <label htmlFor="memberId" className="block text-sm font-medium text-gray-700 mb-1">Member ID</label>
                             <input
-                                type="number"
+                                type="text"
                                 id="memberId"
                                 value={formData.memberId}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed"
