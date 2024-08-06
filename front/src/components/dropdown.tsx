@@ -23,7 +23,7 @@ export default function ProfileDropdown({ UserName }: Props) {
 
   const handleLogout = () => {
     handleClose();
-    logout(); // Call the logout function
+    logout(); 
   };
 
   return (
@@ -50,7 +50,7 @@ export default function ProfileDropdown({ UserName }: Props) {
         }}
       >
         <MenuItem onClick={handleClose}> <a href="/myprofile"> My Profile</a></MenuItem>
-        <MenuItem onClick={handleLogout}> Logout</MenuItem> {/* Call handleLogout on click */}
+        <MenuItem onClick={handleLogout}> Logout</MenuItem>
       </Menu>
     </div>
   );
