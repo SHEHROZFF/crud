@@ -27,14 +27,14 @@ const login = asyncHandler(async (req, res) => {
 
   // Generate OTP
   const otp = crypto.randomInt(100000, 999999); // Generate a 6-digit OTP
-
+  // Send OTP via email
+  sendEmail(mainEmail, otp);
   // Store OTP and expiry time in the user document or a separate collection
   user.otp = otp;
   user.otpExpiry = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
   await user.save();
 
-  // Send OTP via email
-  sendEmail(mainEmail, otp);
+
 
   res.json({
     _id: user._id,
