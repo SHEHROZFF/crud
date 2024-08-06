@@ -3,23 +3,27 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import  {logout}  from '../../src/utils/auth';
+import { logout } from '../../src/utils/auth';
 
-export default function ProfileDropdown() {
+type Props = {
+  UserName: string;
+}
+
+export default function ProfileDropdown({ UserName }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleLogout = () => {
     handleClose();
-    logout();
+    logout(); // Call the logout function
   };
 
   return (
@@ -31,7 +35,10 @@ export default function ProfileDropdown() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <AccountCircleOutlinedIcon sx={{ fontSize: "48px", color: "darkgray", }} />
+        <AccountCircleOutlinedIcon sx={{ fontSize: "48px", color: "darkgray" }} />
+        <span className='text-sm font-medium text-black'>
+          {UserName}
+        </span>
       </Button>
       <Menu
         id="basic-menu"
@@ -42,13 +49,8 @@ export default function ProfileDropdown() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {/* <MenuItem onClick={handleClose}> <a href="/myprofile"> Profile</a></MenuItem> */}
-        {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
-        {/* <MenuItem onClick={handleLogout}>Logout</MenuItem> */}
-        <MenuItem onClick={handleClose}> <a href="/"> Dashboard</a></MenuItem>
-        <MenuItem onClick={handleClose}> <a href="/register"> Register</a></MenuItem>
-        <MenuItem onClick={handleClose}> <a href="/login"> Login</a></MenuItem>
-        
+        <MenuItem onClick={handleClose}> <a href="/myprofile"> My Profile</a></MenuItem>
+        <MenuItem onClick={handleLogout}> Logout</MenuItem> {/* Call handleLogout on click */}
       </Menu>
     </div>
   );

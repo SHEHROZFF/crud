@@ -6,7 +6,7 @@ export default function LoginPage() {
   const [mainEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verification, setVerification] = useState(false);
-  const [otp, setotp] = useState('');
+  const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -15,22 +15,20 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
+  
     if (!verification) {
       setError('Please check the verification box');
       setLoading(false);
       return;
     }
-
+  
     if (!otp) {
       setError('Please enter the verification otp');
       setLoading(false);
       return;
     }
-    console.log(otp);
     
     try {
-      // const response = await fetch('http://localhost:5000/api/users/match-otp', { 
       const response = await fetch('https://crud-78ii.vercel.app/api/users/match-otp', {
         method: 'POST',
         headers: {
@@ -38,14 +36,16 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ mainEmail, otp }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Login failed');
       }
-
+  
       const result = await response.json();
-      console.log('Login successful', result._id);
+      // console.log(result.firstname);
+      
       localStorage.setItem('userId', result._id);
+      localStorage.setItem('firstname', result.firstname); // Ensure this is set correctly
       router.push('/');
     } catch (err: any) {
       setError(err.message);
@@ -53,14 +53,14 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+  
 
   const handleVerification = async () => {
     setLoading(true);
     setError('');
 
-
     try {
-      const response = await fetch('https://crud-78ii.vercel.app/api/users/login', { // Update with your server URL
+      const response = await fetch('https://crud-78ii.vercel.app/api/users/login', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,6 @@ export default function LoginPage() {
       }
 
       const result = await response.json();
-      console.log('Verification successful', result._id);
       // Optionally, handle the result or update the state
     } catch (err: any) {
       setError(err.message);
@@ -85,7 +84,7 @@ export default function LoginPage() {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVerification(e.target.checked);
     if (e.target.checked) {
-      handleVerification(); // Call handleVerification when checked
+      handleVerification();
     }
   };
 
@@ -139,12 +138,15 @@ export default function LoginPage() {
                 id="otp"
                 name="otp"
                 value={otp}
-                onChange={(e) => setotp(e.target.value)}
+                onChange={(e) => setOtp(e.target.value)}
                 required
                 placeholder="Enter 6 character otp"
                 className="w-full px-4 py-2 border border-gray-300 border-t-0 border-l-0 border-r-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-t-0 focus:border-l-0 focus:border-r-0"
               />
             </div>
+          )}
+          {verification && (
+            <p className="mt-4 text-center text-base text-blue-600 capitalize font-medium">Please check your email for the OTP.</p>
           )}
           <button
             type="submit"

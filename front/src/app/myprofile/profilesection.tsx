@@ -124,7 +124,7 @@ export default function ProfileSection() {
                             </label>
                         )}
                     </div>
-                    <h1 className="text-2xl font-semibold text-gray-800 mb-2">{formData.firstname}</h1>
+                    <h1 className="text-2xl font-semibold text-gray-800 mb-2 capitalize">{formData.firstname}</h1>
                 </div>
 
                 <div className="col-span-3 bg-gray-50 rounded-lg p-8">
@@ -153,7 +153,7 @@ export default function ProfileSection() {
                         <div>
                             <label htmlFor="memberId" className="block text-sm font-medium text-gray-700 mb-1">Member ID</label>
                             <input
-                                type="number"
+                                type="text"
                                 id="memberId"
                                 value={formData.memberId}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed"
@@ -205,10 +205,10 @@ export default function ProfileSection() {
                         <h3 className='text-lg font-medium text-gray-700'>Additional Details:</h3>
                     <div className="pt-5 grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                            <label htmlFor="yourTitle" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                             <input
                                 type="text"
-                                id="firstName"
+                                id="yourTitle"
                                 value={formData.yourTitle}
                                 className={`w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm ${isEditing ? '' : 'bg-gray-100 cursor-not-allowed'}`}
                                 disabled={!isEditing}
@@ -227,10 +227,10 @@ export default function ProfileSection() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="officeTel" className="block text-sm font-medium text-gray-700 mb-1">Office Tel</label>
+                            <label htmlFor="officeTelephone" className="block text-sm font-medium text-gray-700 mb-1">Office Tel</label>
                             <input
                                 type="tel"
-                                id="officeTel"
+                                id="officeTelephone"
                                 value={formData.officeTelephone}
                                 className={`w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm ${isEditing ? '' : 'bg-gray-100 cursor-not-allowed'}`}
                                 disabled={!isEditing}

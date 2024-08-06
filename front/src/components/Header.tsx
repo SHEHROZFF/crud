@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileDropdown from './dropdown';
 
 interface HeaderMainProps {
@@ -10,7 +10,20 @@ interface HeaderMainProps {
 }
 
 export default function HeaderMain({ showSearchBar = true, headerText, searchQuery, setSearchQuery }: HeaderMainProps) {
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const storedUserName = localStorage.getItem('firstname');
+    console.log('userId:', userId);
+    console.log('storedUserName:', storedUserName);
+    if (userId && storedUserName) {
+      setIsLoggedIn(true);
+      setUserName(storedUserName);
+    }
+  }, []);
+  
 
   return (
     <header className='w-full flex flex-col items-center justify-center gap-y-3 bg-gray-100'>
@@ -35,11 +48,18 @@ export default function HeaderMain({ showSearchBar = true, headerText, searchQue
               </div>
             </div>
           )}
-          <a href="/login">
-            <button className='bg-blue-500 text-white w-20 h-10 rounded-md hover:-translate-y-1 hover:transition transition'>
-              Login
-            </button>
-          </a>
+          {isLoggedIn ? (
+            <span className='text-blue-500'>
+             
+              <ProfileDropdown UserName={userName} />
+            </span>
+          ) : (
+            <a href="/login">
+              <button className='bg-blue-500 text-white w-20 h-10 rounded-md hover:-translate-y-1 hover:transition transition'>
+                Login
+              </button>
+            </a>
+          )}
           <select
             name="language"
             id="language"

@@ -83,7 +83,7 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
                 </tr>
               ) : (
                 filteredData.map((member: any) => (
-                  <tr key={member._id} className='hover:bg-gray-100'>
+                  <tr key={member._id} className='hover:bg-gray-100 cursor-pointer'>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member._id}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.firstname}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.lastname}</td>
