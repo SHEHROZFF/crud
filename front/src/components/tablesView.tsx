@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; 
 
 interface TableViewProps {
   searchQuery: string;
@@ -9,15 +10,21 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+<<<<<<< HEAD
         //  const response = await fetch('http://localhost:5000/api/users'); 
 
         const response = await fetch('http://localhost:5000/api/users');
-
-
+=======
+        // const response = await fetch('http://localhost:5000/api/users'); 
+        const response = await fetch('https://crud-78ii.vercel.app/api/users');
+>>>>>>> 1809262ebde7c274d3d987df4eb74aea081dd0ca
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -40,6 +47,24 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
     member.lastname.toLowerCase().includes(searchQuery.toLowerCase()) ||
     member.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Calculate the indices of the items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Handle page change
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Handle row click
+  const handleRowClick = (userId: string) => {
+    router.push(`/viewprofile?id=${userId}`); // Navigate to profile page with userId
+  };
 
   if (loading) {
     return (
@@ -75,15 +100,19 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
               </tr>
             </thead>
             <tbody>
-              {filteredData.length === 0 ? (
+              {currentItems.length === 0 ? (
                 <tr>
                   <td colSpan={7} className='py-3 px-4 border-b border-gray-300 text-center'>
                     <p className='mt-2 text-gray-500'>No data available</p>
                   </td>
                 </tr>
               ) : (
-                filteredData.map((member: any) => (
-                  <tr key={member._id} className='hover:bg-gray-100 cursor-pointer'>
+                currentItems.map((member: any) => (
+                  <tr
+                    key={member._id}
+                    className='hover:bg-gray-100 cursor-pointer'
+                    onClick={() => handleRowClick(member._id)} // Handle row click
+                  >
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member._id}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.firstname}</td>
                     <td className='py-3 px-4 border-b border-gray-300 text-center'>{member.lastname}</td>
@@ -96,6 +125,32 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
               )}
             </tbody>
           </table>
+          {/* Pagination Controls */}
+          <div className='mt-4 flex justify-center gap-x-1 items-center'>
+            <button
+              className='px-4 py-2 bg-blue-500 text-white rounded-md hover:-translate-x-1 transition cursor-pointer'
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                className={`w-10 h-10 ${currentPage === index + 1 ? 'bg-blue-400 text-white' : 'bg-gray-300 text-gray-700'} rounded-full border-0 shadow-md`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className='px-4 py-2 bg-blue-500 text-white rounded-md hover:translate-x-1 transition cursor-pointer'
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </section>
