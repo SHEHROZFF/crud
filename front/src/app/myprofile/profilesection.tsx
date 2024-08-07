@@ -18,7 +18,8 @@ export default function ProfileSection() {
         city: '',
         region: '',
         officeName: '',
-        yourTitle: ''
+        yourTitle: '',
+        profilePicture:''
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -31,7 +32,7 @@ export default function ProfileSection() {
             const userId = localStorage.getItem('userId');
 
             try {
-                const response = await fetch('https://crud-78ii.vercel.app/api/users/request-profile-update/' + `${userId}`);
+                const response = await fetch('http://localhost:5000/api/users/request-profile-update/' + `${userId}`);
                 if (!response.ok) throw new Error('Failed to fetch profile information.');
                 const data = await response.json();
 
@@ -58,6 +59,8 @@ export default function ProfileSection() {
             reader.onloadend = () => {
                 setProfilePicture(reader.result as string);
             };
+            console.log(profilePicture);
+            
             reader.readAsDataURL(file);
         }
     };
@@ -76,7 +79,7 @@ export default function ProfileSection() {
         const userId = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://crud-78ii.vercel.app/api/users/verify-and-update-profile/' + `${userId}`, {
+            const response = await fetch('http://localhost:5000/api/users/verify-and-update-profile/' + `${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

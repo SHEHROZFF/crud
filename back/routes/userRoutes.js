@@ -8,6 +8,7 @@ const {
   verifyAndUpdateProfile,
   deleteUser,
   matchOtp,
+  uploadToDb,
 } = require('../controllers/userController'); // Adjusted to CommonJS
 const { admin, protect } = require('../middlewares/authMiddleware'); // Adjusted to CommonJS
 
@@ -27,6 +28,8 @@ router.get('/request-profile-update/:id', requestProfileUpdate);
 // Verify OTP and update profile
 router.put('/verify-and-update-profile/:id', verifyAndUpdateProfile);
 
+// router.post('/upload', upload.single('file'), uploadToDb)
+// router.get('/export', exportDb)
 // Get all users - Protected and accessible only by admin
 router.get('/', getUsers);
 router.delete('/users/:id', protect, admin, deleteUser);
