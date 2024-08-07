@@ -57,7 +57,7 @@ const TableView: React.FC<TableViewProps> = ({ searchQuery }) => {
 
   // Handle row click
   const handleRowClick = (userId: string) => {
-    router.push(`/profile?id=${userId}`); // Navigate to profile page with userId
+    router.push(`/viewprofile?id=${userId}`); // Navigate to profile page with userId
   };
 
   if (loading) {
