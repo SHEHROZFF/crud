@@ -1,14 +1,22 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
+import HeaderMain from "../../components/Header";
 import dynamic from 'next/dynamic';
 
-const Profile = dynamic(() => import('./userprofile'), { ssr: false });
+const UserProfile = dynamic(() => import('./userprofile'), { ssr: false });
 
-const Page: React.FC = () => {
+export default function Page() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Profile />
-    </React.Suspense>
+    <>
+      <HeaderMain 
+        showSearchBar={true} 
+        headerText="User Profile" 
+        searchQuery={searchQuery} 
+        setSearchQuery={setSearchQuery} 
+      />
+      <UserProfile />
+    </>
   );
-};
-
-export default Page;
+}

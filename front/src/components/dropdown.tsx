@@ -35,10 +35,10 @@ export default function ProfileDropdown({ UserName }: Props) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <AccountCircleOutlinedIcon sx={{ fontSize: "48px", color: "darkgray" }} />
-        <span className='text-sm font-medium text-black'>
+        <div className='bg-[#CCC2D9] text-sm font-medium text-black p-2 rounded-full'>
+        <AccountCircleOutlinedIcon sx={{ fontSize: "48px", color: "gray" }} />
           {UserName}
-        </span>
+        </div>
       </Button>
       <Menu
         id="basic-menu"

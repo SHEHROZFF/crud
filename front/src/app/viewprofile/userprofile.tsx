@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import MyLabel from '@/components/label';
 
 const UserProfile: React.FC = () => {
   const [user, setUser] = useState<any>(null);
@@ -63,52 +64,25 @@ const UserProfile: React.FC = () => {
   }
 
   return (
-    <div className='w-full bg-gray-100 h-screen flex justify-center items-center px-4 py-6'>
-  <div className='max-w-xl w-full mx-auto bg-white shadow-2xl rounded-2xl p-6'>
-    <div className='flex flex-col items-center'>
-      <div className='w-40 h-40 rounded-full bg-blue-200 text-gray-700 mb-6 flex items-center justify-center'>
-        <span className='text-4xl font-bold'>
-          {user.firstname.charAt(0)}{user.lastname.charAt(0)}
-        </span>
-      </div>
-      <h2 className='text-3xl font-bold text-gray-800 mb-2 capitalize'>
-        {user.firstname} {user.lastname}
-      </h2>
-      <p className='text-gray-600 mb-4'>{user.assoc}</p>
-    </div>
-    <div className='space-y-4'>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>Member ID:</span>
-        <span className='text-gray-900 font-medium'>{user._id}</span>
-      </div>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>First Name:</span>
-        <span className='text-gray-900 font-medium capitalize'>{user.firstname}</span>
-      </div>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>Last Name:</span>
-        <span className='text-gray-900 font-medium capitalize'>{user.lastname}</span>
-      </div>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>Country:</span>
-        <span className='text-gray-900 font-medium'>{user.region}</span>
-      </div>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>Membership Date:</span>
-        <span className='text-gray-900 font-medium'>{user.membershipDate}</span>
-      </div>
-      <div className='flex justify-between items-center border-b pb-2'>
-        <span className='font-medium text-gray-700'>Email:</span>
-        <span className='text-gray-900 font-medium'>{user.mainEmail}</span>
-      </div>
-      <div className='flex justify-between items-center'>
-        <span className='font-medium text-gray-700'>Cell:</span>
-        <span className='text-gray-900 font-medium'>{user.mainTelephone}</span>
-      </div>
-    </div>
-  </div>
-</div>
-
+    <>
+      <section className='w-1/2 h-full mx-auto'>
+        <div className='grid grid-cols-4 mx-auto p-5 h-96 items-center gap-x-8'>
+          <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg" alt="" className='w-52 h-52 col-span-1' />
+          <div className='col-span-1 flex flex-col gap-y-8'>
+            <MyLabel inputValue={user.firstname} labelText='First name' myplaceholder='First name' />
+            <MyLabel inputValue={user.lastname} labelText='last name' myplaceholder='last name' />
+            <MyLabel inputValue={user.region} labelText='Region' myplaceholder='Region' />
+            <MyLabel inputValue={user.yourTitle} labelText='Title' myplaceholder='Title' />
+          </div>
+          <div className='col-span-2 flex flex-col gap-y-8'>
+            <MyLabel inputValue={user._id} labelText='Member ID' myplaceholder='Member ID' />
+            <MyLabel inputValue={user.mainEmail} labelText='Email' myplaceholder='Email' />
+            <MyLabel inputValue={user.mainTelephone} labelText='Cell' myplaceholder='Cell' />
+            <MyLabel inputValue={user.membershipDate} labelText='Cell' myplaceholder='Membership Date' />
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
